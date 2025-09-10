@@ -12,7 +12,14 @@ contract HelloBankTest is Test {
 
     function setUp() public {
         helloBank = new HelloBank();
+        
+        // Fund test accounts with Ether
+        vm.deal(user1, 10 ether);
+        vm.deal(user2, 10 ether);
     }
+    
+    // Fallback function to receive Ether during tests
+    receive() external payable {}
 
     function test_GetHelloWorld() public {
         // Test that getHelloWorld returns the correct message

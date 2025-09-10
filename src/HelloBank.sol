@@ -6,6 +6,8 @@ pragma solidity ^0.8.19;
  * @dev A simple hello world payable contract
  */
 contract HelloBank {
+    address public owner;
+    
     // Event to log when funds are received
     event FundsReceived(address indexed sender, uint256 amount, string message);
     
@@ -17,6 +19,20 @@ contract HelloBank {
     
     // Error for when a zero address is provided
     error InvalidAddress();
+    
+    // Error for when an unauthorized user attempts to withdraw
+    error Unauthorized();
+    
+    modifier onlyOwner() {
+        if (msg.sender != owner) {
+            revert Unauthorized();
+        }
+        _;
+    }
+    
+    constructor() {
+        owner = msg.sender;
+    }
     
     /**
      * @dev Payable function to receive Ether
@@ -63,7 +79,7 @@ contract HelloBank {
      */
     event FundsWithdrawn(address indexed to, uint256 amount);
     
-    function withdraw() public {
+    function withdraw() public onlyOwner {
         uint256 amount = address(this).balance;
         if (amount == 0) {
             revert NoFundsSent();
