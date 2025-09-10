@@ -6,7 +6,7 @@ This project is a step-by-step implementation of a hello world payable contract 
 
 - [x] Initialize Foundry project
 - [x] Create hello world payable Solidity contract
-- [ ] Write tests for the contract
+- [x] Write tests for the contract
 - [ ] Verify the contract works correctly
 
 ## HelloBank Contract
@@ -27,6 +27,20 @@ The HelloBank contract is a simple hello world payable contract implemented in S
 - **File Location**: [`src/HelloBank.sol`](src/HelloBank.sol)
 - **Solidity Version**: ^0.8.19
 - **License**: MIT
+
+### Test Suite
+
+The HelloBank contract has a comprehensive test suite written in Solidity using Foundry's testing framework. The tests cover all functions and edge cases:
+
+- **File Location**: [`test/HelloBank.t.sol`](test/HelloBank.t.sol)
+- **Test Coverage**:
+  - `getHelloWorld()`: Verifies the function returns the correct greeting message and emits the appropriate event
+  - `deposit()`: Tests that the function correctly receives Ether and updates the balance, including error handling for zero amounts
+  - `receive()`: Tests the fallback function correctly handles direct Ether transfers
+  - `getBalance()`: Verifies the function returns the correct contract balance
+  - `withdraw()`: Tests that the function correctly transfers funds to the owner and handles zero balance scenarios
+  - **Event Testing**: All events are tested to ensure they're emitted with the correct parameters
+  - **Integration Tests**: Tests multiple deposits and withdrawals to ensure the contract works correctly in complex scenarios
 
 ## Foundry
 
